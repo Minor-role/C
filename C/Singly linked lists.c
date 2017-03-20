@@ -29,32 +29,37 @@ LinkedList LinkedListCreate()
 	scanf("%d",&x);
 	while( x != 0)
 	{
-		p =  (Node*) malloc (sizeof(Node));
-		p->data = x;
-		p->next = head->next;
-		head->next = p; 
+		p =  (Node*) malloc (sizeof(Node));  //Application memory space
+		p->data = x;						// put x into node's data
+		p->next = head->next;				//head insert
+		head->next = p;                     //link head and next
 		scanf("%d",&x);
 	}
 	return head;
 }
 
+//search a node
+LinkedList LinkedListSearch(LinkedList head,elemtype x)
+{
+	Node *p;
+	p = head->next;
+	while(p->data != x)
+	{
+		if(p->next == NULL)
+			return 0;
+		p = p->next;
+	}
+	return p;
+} 
+//delete a node
+LinkedList LinkedListDelete(LinkedList head,elemtype x)
+{
+
+}
+
 int main()
 {
 	
-	printf("good job");
-}
-
-
-void  reverse( LinkList *head )
-{	LinkList  *p, *q;
-	p = head->next;	     /*p指向第一个结点*/
-	q = p->next; 
-	while (p->data > q->data)
-	{	q = p;   	    /*取下原链表的当前结点*/
-		p = p->next;	    /*p指针下移*/
-		q->next = head->next;		
- 		head->next = q;  /*修改头结点指针*/
-	}
 }
 
 
