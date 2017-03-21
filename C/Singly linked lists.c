@@ -85,15 +85,12 @@ int main()
 	else
 		printf("Sorry,I can't found your value.\n");
 */
-	temp = LinkedListDelete(head,x);
+//	temp = LinkedListDelete(head,x);
 	if(temp != 0)
 		printf("You value had fined:%d\n",temp);
 	else
 		printf("Sorry,I can't found your value.\n");		
 	return 0;
 }
-
-
-
 
 
