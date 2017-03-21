@@ -14,7 +14,7 @@ LinkedList LinkedListInit()
 	Node *head;
 	head = (Node*) malloc (sizeof(Node));
 	if(head == NULL)
-		print("Failed to apply memory space!\n");
+		printf("Failed to apply memory space!\n");
 	head->next = NULL; 
 }
 
@@ -24,10 +24,10 @@ LinkedList LinkedListCreate()
 	Node *head,*p;
 	head = (Node*) malloc (sizeof(Node));
 	if(head == NULL)
-		print("Failed to apply memory space!\n");
+		printf("Failed to apply memory space!\n");
 	head->next = NULL; 
-	
 	elemtype x;
+	printf("Please enter some number(0 exit):");
 	scanf("%d",&x);
 	while( x != 0)
 	{
@@ -51,18 +51,20 @@ LinkedList LinkedListSearch(LinkedList head,elemtype x)
 			return 0;
 		p = p->next;
 	}
-	return p;
+	return head;
 } 
 //delete a node
 LinkedList LinkedListDelete(LinkedList head,elemtype x)
 {
 	Node *p,*q;
-	p = head;
-	while(p->next->data != x)
+	p = head->next;
+	while(p->data != x)
+	{
 		if(p->next == NULL)
 			return 0;
-	q = p->next;
-	p->next = p->next->next;
+		q = p->next;
+		p->next = q->next;
+	}
 	free(q);
 	return head;
 }
@@ -72,13 +74,22 @@ int main()
 	Node *head;
 	LinkedList temp; 
 	elemtype x;
-	head = LinkedListCreate();
-	scanf("%d\n",&x );
+	head = LinkedListCreate(); 
+	printf("Please enter you want to find the value(0 exit):");
+	fflush(stdin);        //Clear buffer value
+	scanf("%d",&x);
+/*
 	temp = LinkedListSearch(head,x);
 	if(temp != 0)
 		printf("You value had fined:%d\n",temp);
 	else
 		printf("Sorry,I can't found your value.\n");
+*/
+	temp = LinkedListDelete(head,x);
+	if(temp != 0)
+		printf("You value had fined:%d\n",temp);
+	else
+		printf("Sorry,I can't found your value.\n");		
 	return 0;
 }
 
