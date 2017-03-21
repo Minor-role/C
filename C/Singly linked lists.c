@@ -1,4 +1,6 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
 typedef int elemtype;          //Convenient after modifying the type of data
 typedef struct Node
 {
@@ -54,12 +56,30 @@ LinkedList LinkedListSearch(LinkedList head,elemtype x)
 //delete a node
 LinkedList LinkedListDelete(LinkedList head,elemtype x)
 {
-
+	Node *p,*q;
+	p = head;
+	while(p->next->data != x)
+		if(p->next == NULL)
+			return 0;
+	q = p->next;
+	p->next = p->next->next;
+	free(q);
+	return head;
 }
 
 int main()
 {
-	
+	Node *head;
+	LinkedList temp; 
+	elemtype x;
+	head = LinkedListCreate();
+	scanf("%d\n",&x );
+	temp = LinkedListSearch(head,x);
+	if(temp != 0)
+		printf("You value had fined:%d\n",temp);
+	else
+		printf("Sorry,I can't found your value.\n");
+	return 0;
 }
 
 
