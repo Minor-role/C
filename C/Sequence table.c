@@ -1,6 +1,6 @@
 #include<stdio.h>
 #define n 500
-//test number:1 2 0 -1 5 -3 -4 -5 10086
+//test number:0 34 34 83 -34 -345 324 0 34 0 10086   
 int change(int A[],int flag,int i)
 {
 	int j = 0;      //lift subscript
@@ -9,6 +9,18 @@ int change(int A[],int flag,int i)
 	{
 		while(A[j] < flag && j<i)j++;
 		while(A[i] > flag && j<i)i--;
+		while(A[j] == flag && A[i] == flag)i--;
+		if(j < i)
+		{
+			temp = A[j];
+			A[j] = A[i];
+			A[i] = temp;
+		}
+	}
+	while(j < i)
+	{
+		while(A[j] <= flag && j<i)j++;
+		while(A[i] != flag && j<i )i--;
 		if(j < i)
 		{
 			temp = A[j];

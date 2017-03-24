@@ -17,8 +17,9 @@ LinkedList LinkedListCreate(elemtype x)
 	head = (Node*) malloc (sizeof(Node));
 	if(head == NULL)                       
 		printf("Failed to apply memory space!\n");
-	head->next  = head; 
-	head->prior = head;
+	head->next  = NULL; 
+//	head->prior = head;
+	head->prior = NULL;
 	if(x > 0)          //do not raise any memory space
 	{
 		scanf("%d",&keep);
@@ -28,12 +29,13 @@ LinkedList LinkedListCreate(elemtype x)
 	for(;i<x;i++)
 	{
 		p = (Node*) malloc (sizeof(Node));
+		p->prior = NULL;
 		scanf("%d",&keep);
 		p->data = keep;
-		head->prior = p;
-		p->next  = head;
+//		head->prior = p;       
+		p->next  = q;
 		q->next  = p;
-		p->prior = q;
+//		p->prior = q;
 		q = p;
 	}
 	return head;
@@ -55,21 +57,58 @@ LinkedList LinkedListSearch(LinkedList head,elemtype x)
 	return 0;
 }
 
+LinkedList LinkedListBuild(LinkedList head)
+{
+	Node *p,*q;
+	if(head->next == head)
+	{
+		head->prior = head;
+		return head;
+	}
+	p = head->next;
+	q = head;
+	while(p != head)
+	{
+		q = p->prior;
+		head->prior = p;
+		p = p->next;
+		if(p->next == NULL)
+		{
+			p->next = head;
+			break;
+		}
+		q = p;
+	}
+	return head;
+}
+
 int main()
 {
-	Node *head;
+	Node *head,*p;
 	int flag;
 	int x;
 	printf("Please enter a len number:\n");
 	scanf("%d",&x);
 	head = LinkedListCreate(x);
-	printf("Please enter the number what you fined:\n");
-	scanf("%d",&x);
+//	printf("Please enter the number what you fined:\n");
+//	scanf("%d",&x);
+	/*
 	flag = LinkedListSearch(head,x);
 	if(flag == 0)
 		printf("Can't found the value.\n");
 	else
 		printf("The value in %d\n",flag);
+	*/
+	LinkedListBuild(head);
+	if(head->next = head)
+		printf("%d",head->data);
+	printf("%d",head->data);
+	p = head->next;
+	while(p != head)
+	{
+		printf("%d\n",p->data);
+		p = p->next;
+	}
 	return 0;
 }
 
