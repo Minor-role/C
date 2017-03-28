@@ -34,7 +34,7 @@ LinkedList LinkedListCreate(elemtype x)
 		p->data = keep;
 //		head->prior = p;       
 		p->next  = q;
-		q->next  = p;
+		head->next  = p;
 //		p->prior = q;
 		q = p;
 	}
@@ -71,13 +71,13 @@ LinkedList LinkedListBuild(LinkedList head)
 	{
 		q = p->prior;
 		head->prior = p;
+		q = p;
 		p = p->next;
 		if(p->next == NULL)
 		{
 			p->next = head;
 			break;
 		}
-		q = p;
 	}
 	return head;
 }

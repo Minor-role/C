@@ -4,7 +4,8 @@
 int change(int A[],int flag,int i)
 {
 	int j = 0;      //lift subscript
-	int temp;
+	int temp,i_temp;
+	i_temp = i;
 	while(j<i)
 	{
 		while(A[j] < flag && j<i)j++;
@@ -17,6 +18,7 @@ int change(int A[],int flag,int i)
 			A[i] = temp;
 		}
 	}
+	i =  i_temp;
 	while(j < i)
 	{
 		while(A[j] <= flag && j<i)j++;
@@ -35,7 +37,7 @@ int main()
 	int A[n]; //Array used to save the sequence table
 	int x;    //To save the input number
 	int i = 0;    //subscript
-	int flag;	 //flag  subscript
+	int flag = 0;	 //flag  subscript
 	scanf("%d",&x);
 	while(x != 10086)  // 10086 is exit flag
 	{
