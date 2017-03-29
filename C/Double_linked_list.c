@@ -9,38 +9,26 @@ typedef struct Node
 	struct Node *prior;
 }Node,*LinkedList;
 
+//尾插法创建循环单链表 
 LinkedList LinkedListCreate(elemtype x)
 {
-	int i = 1;   //count the number 
-	int keep;    // to save the number
+	int i;
+	int save;
 	Node *head,*p,*q;
 	head = (Node*) malloc (sizeof(Node));
-	if(head == NULL)                       
-		printf("Failed to apply memory space!\n");
-	head->next  = NULL; 
-//	head->prior = head;
-	head->prior = NULL;
-	if(x > 0)          //do not raise any memory space
-	{
-		scanf("%d",&keep);
-		head->data = keep;
-		q = head;
-	}
-	for(;i<x;i++)
+	head->data = NULL;
+	q = head;
+	for(i=0;i<x;i++)
 	{
 		p = (Node*) malloc (sizeof(Node));
-		p->prior = NULL;
-		scanf("%d",&keep);
-		p->data = keep;
-//		head->prior = p;       
-		p->next  = q;
-		head->next  = p;
-//		p->prior = q;
+		scanf("%d",&save);
+		p->data = save;
+		q->next = p;
 		q = p;
 	}
+	p->next = head;
 	return head;
 }
-
 LinkedList LinkedListSearch(LinkedList head,elemtype x)
 {
 	Node *p;
@@ -57,6 +45,7 @@ LinkedList LinkedListSearch(LinkedList head,elemtype x)
 	return 0;
 }
 
+//把循环单链表变成循环双链表 
 LinkedList LinkedListBuild(LinkedList head)
 {
 	Node *p,*q;
@@ -69,15 +58,11 @@ LinkedList LinkedListBuild(LinkedList head)
 	q = head;
 	while(p != head)
 	{
-		q = p->prior;
-		head->prior = p;
+		p->prior = q;
 		q = p;
-		p = p->next;
-		if(p->next == NULL)
-		{
-			p->next = head;
-			break;
-		}
+		p = p->next; 
+		if(p == head)
+			p->prior = q;
 	}
 	return head;
 }
@@ -90,9 +75,11 @@ int main()
 	printf("Please enter a len number:\n");
 	scanf("%d",&x);
 	head = LinkedListCreate(x);
-//	printf("Please enter the number what you fined:\n");
-//	scanf("%d",&x);
-	/*
+	//搜索链表中的元素 
+/*
+	printf("Please enter the number what you fined:\n");
+	scanf("%d",&x);
+	
 	flag = LinkedListSearch(head,x);
 	if(flag == 0)
 		printf("Can't found the value.\n");
@@ -100,14 +87,21 @@ int main()
 		printf("The value in %d\n",flag);
 	*/
 	LinkedListBuild(head);
-	if(head->next = head)
-		printf("%d",head->data);
-	printf("%d",head->data);
+/*
+	//next输出 
 	p = head->next;
 	while(p != head)
 	{
 		printf("%d\n",p->data);
 		p = p->next;
+	}
+*/
+	//prior输出 
+	p = head->prior; 
+	while(p != head)
+	{
+		printf("%d\n",p->data);
+		p = p->prior;
 	}
 	return 0;
 }
