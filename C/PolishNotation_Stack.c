@@ -46,10 +46,33 @@ elemtype Stack_Save(Stack Save)
 		return Save->top--;    // 栈顶下标减一，再返回栈顶下标
 }
 
+// 判断符号是否应该入符号栈
+int SubscriptStack_IsEnter(Stack Save,elemtype x)
+{
+	if(Save->top == -1)
+	{
+		Stack_Save(Stack_Save,x);
+		return 1;
+	}
+	else if()
+}
+
 int main()
 {
-	Stack *S_all,*S_subscript;  //  all存储表达式所有语句，sub只存储表达式的符号
+	elemtype x;   // 输入值
+	int sign = 0; 
+	Stack *S_all,*S_subscript;  //  all是总栈，sub是符号栈
 	S_all = Stack_Create();
 	S_subscript = Stack_Create();
-	
+	printf("请输入一个表达式：\n");
+	while(x != '#')
+	{
+		scanf("%c",&x);
+		if(x > 47 && x < 58)  // 判断是否为数字
+			S_all = Stack_Save(S_all,x);
+		else if(x == 40 |x == 41 |x == 42 |x == 43 |x == 45 |x == 47) // ( ) * + - /
+		{
+			
+		} 
+	}
 }
