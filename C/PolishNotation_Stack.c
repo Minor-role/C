@@ -8,7 +8,6 @@ typedef char elemtype;
 typedef struct SequenStack
 {
 	elemtype data[N];     // 存放栈中元素的数组
-	elemtype *;  // 指向数组的指针
 	int top; // 数组的栈顶位置
 }Stack;
 
@@ -23,14 +22,14 @@ Stack Stack_Create()
 	return Save;
 }
 // 判断是否栈空
-int Stack_IsEmpty(Stack Save)
+int Stack_IsEmpty(Stack *Save)
 {
 	if(Save->top == -1)
-		return -1;
-	return 0;
+		return -1;  // 栈空为-1
+	return 0;   
 }
 // 数据入栈
-int Stack_Save(Stack Save,elemtype x) 
+int Stack_In(Stack *Save,elemtype *x) 
 {
 	Save->top++;
 	Save->data[Save->top] = x;
@@ -38,7 +37,7 @@ int Stack_Save(Stack Save,elemtype x)
 }
 
 // 数据出栈
-elemtype Stack_Save(Stack Save)  
+elemtype Stack_Pop(Stack *Save)  
 {
 	if(Stack_IsEmpty == -1)
 		return 0;
@@ -47,14 +46,62 @@ elemtype Stack_Save(Stack Save)
 }
 
 // 判断符号是否应该入符号栈
-int SubscriptStack_IsEnter(Stack Save,elemtype x)
+int SubscriptStack_IsEnter(Stack *S_all, Stack *S_subscript, elemtype *x)
 {
-	if(Save->top == -1)
+	if(S_subscript->top == -1 && x != ')')
 	{
-		Stack_Save(Stack_Save,x);
+		Stack_In(Stack_S_subscript,x);
 		return 1;
 	}
-	else if()
+	if(x == '(') // 判断 左括号
+	{
+		Stack_In(S_subscript,x);  //  直接进栈
+		return 1;
+	}
+	else if(x == ')')  // 判断 右括号
+	{
+		for(; S_subscript->data[S_subscript->top] != '('; )     // 弹出所有符号，直至遇到左括号
+		{
+			Stack_In(S_all, S_subscript->data[S_subscript->top]);
+			Stack_Pop(S_subscript);
+		}
+		S_subscript->data[S_subscript->top] = 0;    // 删除左括号
+		S_subscript->top--;    // 将栈顶位置top移向下一栈底位置
+	}
+	else if(x == '*' | x == '/')  // 判断乘除号
+	{
+		if(S_subscript->data[S_subscript->top] == '+' | S_subscript->data[S_subscript->top] == '-' | S_subscript->data[S_subscript->top] == '(' )  // 遇到优先级低的直接进栈
+			Stack_In(S_subscript,x);
+		else if(S_subscript->data[S_subscript->top] == '*' | S_subscript->data[S_subscript->top] == '/' )   // 遇到优先级高的，先把同级符号全弹栈，再进栈
+		{
+			for (; S_subscript->data[S_subscript->top] == '+' | S_subscript->data[S_subscript->top] == '-' | S_subscript->data[S_subscript->top] == '(';)
+			{
+				Stack_In(S_all, S_subscript->data[S_subscript->top]);
+				Stack_Pop(S_subscript);
+			}
+			Stack_In(S_subscript, x);
+		}
+	}
+	else if(x == '+' | x == '-')  // 判断加减号
+	{
+		if(Stack_IsEmpty(S_subscript) == -1 | S_subscript->data[S_subscript->top] == '(')   // 遇到栈底或者左括号直接进栈
+			Stack_In(S_subscript, x);
+		else if(S_subscript->data[S_subscript->top] == '*' | S_subscript->data[S_subscript->top] == '/' )   // 遇到优先级高的，先把同级和高级符号全弹栈，再进栈
+		{
+			for (; Stack_IsEmpty(S_subscript) == -1 | S_subscript->data[S_subscript->top] == '(';)
+			{
+				Stack_In(S_all, S_subscript->data[S_subscript->top]);
+				Stack_Pop(S_subscript);
+			}
+			Stack_In(S_subscript, x);
+		}
+		else
+		{
+			printf("你的表达式有误，请再次输入！");
+			return -1;
+		}
+	}
+	return 0;
 }
 
 int main()
@@ -70,9 +117,17 @@ int main()
 		scanf("%c",&x);
 		if(x > 47 && x < 58)  // 判断是否为数字
 			S_all = Stack_Save(S_all,x);
-		else if(x == 40 |x == 41 |x == 42 |x == 43 |x == 45 |x == 47) // ( ) * + - /
+		else if(x == '(' | x == ')' | x == '*' |x == '/' |x == '+' |x == '-') 
 		{
-			
-		} 
+			SubscriptStack_IsEnter(S_all, S_subscript, x);
+		}
+		else
+			printf("你的表达式有误，请再次输入！");
 	}
+	// 输出逆波兰式
+	for(;sign != S_subscript->top+1; sign++)
+		Stack_In(S_all, S_subscript->data[S_subscript->sign]);
+	for(; sign != S_all->top+1; sign++)
+		printf("%c", S_all->data[S_all->sign]);
+	return 0;
 }
