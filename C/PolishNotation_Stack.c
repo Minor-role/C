@@ -7,72 +7,73 @@ typedef char elemtype;
 //define the Stack
 typedef struct SequenStack
 {
-	elemtype data[N];     // å­˜æ”¾æ ˆä¸­å…ƒç´ çš„æ•°ç»„
-	int top; // æ•°ç»„çš„æ ˆé¡¶ä½ç½®
-}Stack;
+	elemtype data[N];     // ´æ·ÅÕ»ÖĞÔªËØµÄÊı×é
+	int top; // Êı×éµÄÕ»¶¥Î»ÖÃ
+}*Stack;
 
 // create a Stack
 Stack Stack_Create()
 {
-	Stack *Save;
-	Save = (Stack*)malloc(sizeof(Stack));
+	Stack Save;
+	Save = (Stack *)malloc(sizeof(Stack));
 	if(Save == NULL)
-		printf("ç”³è¯·å†…å­˜å¤±è´¥ï¼");
+		printf("ÉêÇëÄÚ´æÊ§°Ü£¡");
 	Save->top = -1;
 	return Save;
 }
-// åˆ¤æ–­æ˜¯å¦æ ˆç©º
-int Stack_IsEmpty(Stack *Save)
+
+// ÅĞ¶ÏÊÇ·ñÕ»¿Õ
+int Stack_IsEmpty(Stack Save)
 {
 	if(Save->top == -1)
-		return -1;  // æ ˆç©ºä¸º-1
+		return -1;  // Õ»¿ÕÎª-1
 	return 0;   
 }
-// æ•°æ®å…¥æ ˆ
-int Stack_In(Stack *Save,elemtype *x) 
+// Êı¾İÈëÕ»
+int Stack_In(Stack Save,elemtype *x) 
 {
 	Save->top++;
 	Save->data[Save->top] = x;
-	return Save;
+	return 0;
 }
 
-// æ•°æ®å‡ºæ ˆ
-elemtype Stack_Pop(Stack *Save)  
+// Êı¾İ³öÕ»
+elemtype Stack_Pop(Stack Save)  
 {
 	if(Stack_IsEmpty == -1)
 		return 0;
 	else
-		return Save->top--;    // æ ˆé¡¶ä¸‹æ ‡å‡ä¸€ï¼Œå†è¿”å›æ ˆé¡¶ä¸‹æ ‡
+		return Save->top--;    // Õ»¶¥ÏÂ±ê¼õÒ»£¬ÔÙ·µ»ØÕ»¶¥ÏÂ±ê
 }
 
-// åˆ¤æ–­ç¬¦å·æ˜¯å¦åº”è¯¥å…¥ç¬¦å·æ ˆ
-int SubscriptStack_IsEnter(Stack *S_all, Stack *S_subscript, elemtype *x)
+// ÅĞ¶Ï·ûºÅÊÇ·ñÓ¦¸ÃÈë·ûºÅÕ»
+int SubscriptStack_IsEnter(Stack S_all, Stack S_subscript, elemtype *x)
 {
 	if(S_subscript->top == -1 && x != ')')
 	{
-		Stack_In(Stack_S_subscript,x);
+		Stack_In(S_subscript,x);
 		return 1;
 	}
-	if(x == '(') // åˆ¤æ–­ å·¦æ‹¬å·
+	if(x == '(') // ÅĞ¶Ï ×óÀ¨ºÅ
 	{
-		Stack_In(S_subscript,x);  //  ç›´æ¥è¿›æ ˆ
+		Stack_In(S_subscript,x);  //  Ö±½Ó½øÕ»
 		return 1;
 	}
-	else if(x == ')')  // åˆ¤æ–­ å³æ‹¬å·
+	else if(x == ')')  // ÅĞ¶Ï ÓÒÀ¨ºÅ
 	{
-		for(; S_subscript->data[S_subscript->top] != '('; )     // å¼¹å‡ºæ‰€æœ‰ç¬¦å·ï¼Œç›´è‡³é‡åˆ°å·¦æ‹¬å·
+		for(; S_subscript->data[S_subscript->top] != '('; )     // µ¯³öËùÓĞ·ûºÅ£¬Ö±ÖÁÓöµ½×óÀ¨ºÅ
 		{
 			Stack_In(S_all, S_subscript->data[S_subscript->top]);
 			Stack_Pop(S_subscript);
 		}
-		S_subscript->data[S_subscript->top] = 0;    // åˆ é™¤å·¦æ‹¬å·
-		S_subscript->top--;    // å°†æ ˆé¡¶ä½ç½®topç§»å‘ä¸‹ä¸€æ ˆåº•ä½ç½®
+		S_subscript->data[S_subscript->top] = 0;    // É¾³ı×óÀ¨ºÅ
+		S_subscript->top--;    // ½«Õ»¶¥Î»ÖÃtopÒÆÏòÏÂÒ»Õ»µ×Î»ÖÃ
 	}
-	else if(x == '*' | x == '/')  // åˆ¤æ–­ä¹˜é™¤å·
+	else if(x == '*' | x == '/')  // ÅĞ¶Ï³Ë³ıºÅ
 	{
-		if(S_subscript->data[S_subscript->top] == '+' | S_subscript->data[S_subscript->top] == '-' | S_subscript->data[S_subscript->top] == '(' )  // é‡åˆ°ä¼˜å…ˆçº§ä½çš„ç›´æ¥è¿›æ ˆ
+		if(S_subscript->data[S_subscript->top] == '+' | S_subscript->data[S_subscript->top] == '-' | S_subscript->data[S_subscript->top] == '(' )  // Óöµ½ÓÅÏÈ¼¶µÍµÄÖ±½Ó½øÕ»
 			Stack_In(S_subscript,x);
-		else if(S_subscript->data[S_subscript->top] == '*' | S_subscript->data[S_subscript->top] == '/' )   // é‡åˆ°ä¼˜å…ˆçº§é«˜çš„ï¼Œå…ˆæŠŠåŒçº§ç¬¦å·å…¨å¼¹æ ˆï¼Œå†è¿›æ ˆ
+		else if(S_subscript->data[S_subscript->top] == '*' | S_subscript->data[S_subscript->top] == '/' )   // Óöµ½ÓÅÏÈ¼¶¸ßµÄ£¬ÏÈ°ÑÍ¬¼¶·ûºÅÈ«µ¯Õ»£¬ÔÙ½øÕ»
 		{
 			for (; S_subscript->data[S_subscript->top] == '+' | S_subscript->data[S_subscript->top] == '-' | S_subscript->data[S_subscript->top] == '(';)
 			{
@@ -82,11 +83,11 @@ int SubscriptStack_IsEnter(Stack *S_all, Stack *S_subscript, elemtype *x)
 			Stack_In(S_subscript, x);
 		}
 	}
-	else if(x == '+' | x == '-')  // åˆ¤æ–­åŠ å‡å·
+	else if(x == '+' | x == '-')  // ÅĞ¶Ï¼Ó¼õºÅ
 	{
-		if(Stack_IsEmpty(S_subscript) == -1 | S_subscript->data[S_subscript->top] == '(')   // é‡åˆ°æ ˆåº•æˆ–è€…å·¦æ‹¬å·ç›´æ¥è¿›æ ˆ
+		if(Stack_IsEmpty(S_subscript) == -1 | S_subscript->data[S_subscript->top] == '(')   // Óöµ½Õ»µ×»òÕß×óÀ¨ºÅÖ±½Ó½øÕ»
 			Stack_In(S_subscript, x);
-		else if(S_subscript->data[S_subscript->top] == '*' | S_subscript->data[S_subscript->top] == '/' )   // é‡åˆ°ä¼˜å…ˆçº§é«˜çš„ï¼Œå…ˆæŠŠåŒçº§å’Œé«˜çº§ç¬¦å·å…¨å¼¹æ ˆï¼Œå†è¿›æ ˆ
+		else if(S_subscript->data[S_subscript->top] == '*' | S_subscript->data[S_subscript->top] == '/' )   // Óöµ½ÓÅÏÈ¼¶¸ßµÄ£¬ÏÈ°ÑÍ¬¼¶ºÍ¸ß¼¶·ûºÅÈ«µ¯Õ»£¬ÔÙ½øÕ»
 		{
 			for (; Stack_IsEmpty(S_subscript) == -1 | S_subscript->data[S_subscript->top] == '(';)
 			{
@@ -97,7 +98,7 @@ int SubscriptStack_IsEnter(Stack *S_all, Stack *S_subscript, elemtype *x)
 		}
 		else
 		{
-			printf("ä½ çš„è¡¨è¾¾å¼æœ‰è¯¯ï¼Œè¯·å†æ¬¡è¾“å…¥ï¼");
+			printf("ÄãµÄ±í´ïÊ½ÓĞÎó£¬ÇëÔÙ´ÎÊäÈë£¡");
 			return -1;
 		}
 	}
@@ -106,28 +107,28 @@ int SubscriptStack_IsEnter(Stack *S_all, Stack *S_subscript, elemtype *x)
 
 int main()
 {
-	elemtype x;   // è¾“å…¥å€¼
+	elemtype x = 0;   // ÊäÈëÖµ
 	int sign = 0; 
-	Stack *S_all,*S_subscript;  //  allæ˜¯æ€»æ ˆï¼Œsubæ˜¯ç¬¦å·æ ˆ
+	Stack S_all, S_subscript;  //  allÊÇ×ÜÕ»£¬subÊÇ·ûºÅÕ»
 	S_all = Stack_Create();
 	S_subscript = Stack_Create();
-	printf("è¯·è¾“å…¥ä¸€ä¸ªè¡¨è¾¾å¼ï¼š\n");
+	printf("ÇëÊäÈëÒ»¸ö±í´ïÊ½£º\n");
 	while(x != '#')
 	{
 		scanf("%c",&x);
-		if(x > 47 && x < 58)  // åˆ¤æ–­æ˜¯å¦ä¸ºæ•°å­—
-			S_all = Stack_Save(S_all,x);
+		if(x > 47 && x < 58)  // ÅĞ¶ÏÊÇ·ñÎªÊı×Ö
+			S_all = Stack_In(S_all,x);
 		else if(x == '(' | x == ')' | x == '*' |x == '/' |x == '+' |x == '-') 
 		{
 			SubscriptStack_IsEnter(S_all, S_subscript, x);
 		}
 		else
-			printf("ä½ çš„è¡¨è¾¾å¼æœ‰è¯¯ï¼Œè¯·å†æ¬¡è¾“å…¥ï¼");
+			printf("ÄãµÄ±í´ïÊ½ÓĞÎó£¬ÇëÔÙ´ÎÊäÈë£¡");
 	}
-	// è¾“å‡ºé€†æ³¢å…°å¼
+	// Êä³öÄæ²¨À¼Ê½
 	for(;sign != S_subscript->top+1; sign++)
-		Stack_In(S_all, S_subscript->data[S_subscript->sign]);
+		Stack_In(S_all, S_subscript->data[sign]);
 	for(; sign != S_all->top+1; sign++)
-		printf("%c", S_all->data[S_all->sign]);
+		printf("%c", S_all->data[sign]);
 	return 0;
 }
