@@ -21,3 +21,6 @@ write a SequenceTable and perfect the singly linked list.
 =======
 I write a double_circular_linked_list and a reptiles,I have't finish my reptiles,so I jush push the linked_list.
 2017-03-22
+=======
+Today spent a whole day to write anti-Polish-style algorithm, found that they did not write code notes, and logical confusion, resulting in their own code can not pass the test, after a good habit, to write friendly code.
+2017-04-11
