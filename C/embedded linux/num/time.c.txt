@@ -1,0 +1,37 @@
+#include <time.h>
+#include<string.h>
+void *take_time(void *arg)
+{
+	time_t mytime;
+	char buf[20];
+	int i;
+	//
+	while(1)
+	{
+		time(&mytime);
+		
+		strcpy(buf,ctime(&mytime));
+		// 使用ctime将时间转换成人类习惯的字符串形式
+		printf("现在系统时间是：%s\n",ctime(&mytime));
+		for(i=11;i<19;i++)
+		{
+			switch(buf[i])
+			{
+				case '0':show_anybmp(620+(i-11)*16,30,16,32,"/wuyi/num/0..bmp");break;
+				case '1':show_anybmp(620+(i-11)*16,30,16,32,"/wuyi/num/1..bmp");break;
+				case '2':show_anybmp(620+(i-11)*16,30,16,32,"/wuyi/num/2..bmp");break;
+				case '3':show_anybmp(620+(i-11)*16,30,16,32,"/wuyi/num/3..bmp");break;
+				case '4':show_anybmp(620+(i-11)*16,30,16,32,"/wuyi/num/4..bmp");break;
+				case '5':show_anybmp(620+(i-11)*16,30,16,32,"/wuyi/num/5..bmp");break;
+				case '6':show_anybmp(620+(i-11)*16,30,16,32,"/wuyi/num/6..bmp");break;
+				case '7':show_anybmp(620+(i-11)*16,30,16,32,"/wuyi/num/7..bmp");break;
+				case '8':show_anybmp(620+(i-11)*16,30,16,32,"/wuyi/num/8..bmp");break;
+				case '9':show_anybmp(620+(i-11)*16,30,16,32,"/wuyi/num/9..bmp");break;
+				case ':':show_anybmp(620+(i-11)*16,30,16,32,"/wuyi/num/:..bmp");break;
+				default: break;
+			}
+		}
+		sleep(1);
+	}
+}
+pthread_create(&timeid,NULL,take_time,NULL);
