@@ -1,0 +1,5 @@
+通过ffmpeg将图片转换为video.avi文件 
+				system("ffmpeg -f image2 -i /gec/web/video/video%d.jpg -r 25 /gec/web/video/video.avi\n");
+
+           参数说明：-i  /gec/web/video/video%d.jpg 指明开发板上摄像头保存的图片的路径			          /gec/web/video/video.avi 指明转换后的视频存储在哪个位置
+                            以上路径都应该提前创建好				
