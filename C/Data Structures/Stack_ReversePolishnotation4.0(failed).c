@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h> 
 #define N 100
 
 // 把char类型定义为elemtype，便于后期修改 
@@ -40,7 +41,7 @@ int Stack_In(Stack S,elemtype x)
 }
 
 // 数据出栈
-int Stack_Pop(Stack S, elemtype *x)  
+int Stack_Pop(Stack S, elemtype x)  
 {
 	if(S->top == -1)
 		return 0;
@@ -53,7 +54,7 @@ int Stack_Pop(Stack S, elemtype *x)
 } 
 
 // 符号优先级代号 ,数字越大，优先级越高 
-int Priority(elemtype *x)
+int Priority(elemtype x)
 {
 	if(x >= '0' && x <= '9')
 		return 5;
