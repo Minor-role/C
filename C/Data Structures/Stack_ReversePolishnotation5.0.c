@@ -2,8 +2,11 @@
 	求解逆波兰式
 	传入中缀表达式，通过运算得出后缀表达式
 */
-#include<stdio.h>
-#include<stdlib.h>
+
+// 测试值：1*2+(3-4/5)*6
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
 #define N 100
 
 // 把char类型定义为elemtype，便于后期修改
@@ -34,7 +37,7 @@ int Stack_IsEmpty(Stack S)
 	if(S->top == -1)
 		return 0;
 	else 
-		return S->data[S->top]; 
+		return S->top; 
 }
 
 // 数据入栈
@@ -112,5 +115,6 @@ int main()
 	// 把栈当队列用，输出总栈内容 
 	for(; sign <= S_all->top; sign++)
 		printf("%c",S_all->data[sign]);
+	system("pause");
 	return 0;
 }

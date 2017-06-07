@@ -1,6 +1,12 @@
+/*
+	建立一个循环单链表，其节点有 prior，data 和 next 三个域，其中 data 为数据域，
+	存放元素的有效信息，next 域为指针域，指向后继节点，prior 为指针域，它的值为NULL。
+	编写一个算法将此表改为循环双链表
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 typedef int elemtype;
 typedef struct Node
 {
@@ -9,7 +15,7 @@ typedef struct Node
 	struct Node *prior;
 }Node,*LinkedList;
 
-//β�巨����ѭ�������� 
+//
 LinkedList LinkedListCreate(elemtype x)
 {
 	int i;
@@ -45,7 +51,7 @@ LinkedList LinkedListSearch(LinkedList head,elemtype x)
 	return 0;
 }
 
-//��ѭ�����������ѭ��˫���� 
+//
 LinkedList LinkedListBuild(LinkedList head)
 {
 	Node *p,*q;
@@ -75,34 +81,14 @@ int main()
 	printf("Please enter a len number:\n");
 	scanf("%d",&x);
 	head = LinkedListCreate(x);
-	//���������е�Ԫ�� 
-/*
-	printf("Please enter the number what you fined:\n");
-	scanf("%d",&x);
-	
-	flag = LinkedListSearch(head,x);
-	if(flag == 0)
-		printf("Can't found the value.\n");
-	else
-		printf("The value in %d\n",flag);
-	*/
 	LinkedListBuild(head);
-/*
-	//next��� 
-	p = head->next;
-	while(p != head)
-	{
-		printf("%d\n",p->data);
-		p = p->next;
-	}
-*/
-	//prior��� 
 	p = head->prior; 
 	while(p != head)
 	{
 		printf("%d\n",p->data);
 		p = p->prior;
 	}
+	system("pause");
 	return 0;
 }
 

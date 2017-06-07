@@ -1,6 +1,7 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <windows.h>
 typedef int elemtype;          //Convenient after modifying the type of data
 typedef struct Node
 {
@@ -89,7 +90,8 @@ int main()
 	if(temp != 0)
 		printf("You value had fined:%d\n",temp);
 	else
-		printf("Sorry,I can't found your value.\n");		
+		printf("Sorry,I can't found your value.\n");	
+	system("pause");	
 	return 0;
 }
 

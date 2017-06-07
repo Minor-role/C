@@ -1,4 +1,10 @@
-#include<stdio.h>
+/*
+	2017年4月27日16:16:30
+	创建一个顺序表，存放在数组 A[N]中，元素的类型为整型，设计算法调整A，
+	使其左边的所有元素小于 0，右边的所有元素大于 0（要求算法的时间复杂度和空 间复杂度均为 O(n)）。
+*/
+#include <stdio.h>
+#include <windows.h>
 #define n 500
 //test number:0 34 34 83 -34 -345 324 0 34 0 10086   
 int change(int A[],int flag,int i)
@@ -49,6 +55,8 @@ int main()
 	printf("result:");
 	for(flag = 0;flag < i;flag++) 
 		printf(" %d ",A[flag]);
+	system("pause");
+	return 0;
 }
 
 
