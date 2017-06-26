@@ -48,7 +48,7 @@ biTreeNode * createBiTree(biTreeNode *T)
 	return T;
 }
 
-
+// 遍历打印树
 void nPreOrder(biTreeNode *bt)
 {
 	int top = -1;
@@ -68,6 +68,7 @@ void nPreOrder(biTreeNode *bt)
 		}
 	} 
 }
+
 
 int main()
 {

@@ -16,7 +16,7 @@ char node[100];
 typedef char elemtype; // 方便之后改变类型
 
 
-					   // 定义链表结点
+// 定义链表结点
 typedef struct biTreeNode
 {
 	elemtype data; // 存放数据
