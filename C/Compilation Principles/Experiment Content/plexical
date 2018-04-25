@@ -1,0 +1,140 @@
+PROGRAM plexical(input,output);
+    LABEL l;
+    CONST
+         keylen=10;
+         identlen=10;
+    TYPE
+        tstring=ARRAY[1..identlen] OF char;
+        outreco=RECORD
+                ty: char;
+                point: integer;
+                END; {outreco}
+    VAR cip,ip,pint,i,j,l,m,errorx:integer;
+        charl:CHAR;
+        ci:ARRAY[1..10] OF integer;
+        k,id:ARRAY[1..keylen] OF tstring;
+        token:tstring;
+        outtoken:outreco;
+        instring:ARRAY[1..10]OF char;
+        p:ARRAY[1..16] OF ARRAY [1..2] OF char;
+PROCEDURE lexical;
+  VAR l,m,num:integer;
+      b: boolean;
+  PROCEDURE getchar;
+  BEGIN
+      charl:=instring [pint] ;
+      pint:=pint+1
+  END; {getchar}
+  PROCEDURE error;
+  BEGIN 
+      writtcln('error',errorx)
+  END;{error}
+  BEGIN 
+      FOR 1:=1 TO inentlen DO token[1]:=' ';
+      getchar;
+      WHILE char1=' ' DO getchar;
+      IF char1 IN ['a'..'z']
+         THEN
+         BEGIN /*处理标识符*/
+          m:=1;
+          WHILE (char1 IN ['a'..'z']) OR (char1 IN ['0'..'9']) DO
+          BEGIN 
+            IF m<=identlen
+               THEN 
+               BEGIN
+                 token[m]:=char1;
+                 m:=m+1
+               END;
+            getchar
+           END;{while}
+           pint:=pint-1;
+           1:=1;
+           b:=false;
+           WHILE (1<=keylen) AND (NOT b) DO
+           BEGIN 
+             b:=true;
+             i:=1;
+             WHILE (i<=identlen) AND b DO
+                IF k[1] [i]=token[i]
+                   THEN i:=i+1
+                   ELSE b:=false;
+             IF NOT b THEN l:=l+1
+        END
+        IF 1<=keylen
+          THEN 
+            BEGIN 
+               outtoken.ty:='k';
+               outtoken.point:=1
+            END 
+          ELSE
+          BEGIN 
+              l:=1;
+              b:=false;
+              WHILE (l<=ip) AND (NOT b ) DO
+              BEGIN
+                b:=true;
+                i:=1;
+                WHILE (i<=identlen) AND b DO
+                   IF id[1][i]=token[i]
+                      THEN i:=i+1
+                      ELSE b:=false;
+                IF NOT b THEN l:=l+1;
+              END;
+              IF NOT b THEN l:=l+1;
+              IF 1>ip
+                 THEN
+                 BEGIN 
+                   ip:=ip+1;
+                   FOR m:=1 TO identlen DO id[ip][m]:=token[m];
+                   outtoken.ty:='i';
+                   outtoken.point:=1
+                 END
+             END 
+          END 
+          ELSE
+            IF char1 IN ['0'..'9']
+               THEN
+               BEGIN
+  处理常数  
+END{integer}
+ELSE
+IF char1 IN [',',';','.',':','(',')']
+THEN
+BEGIN
+  处理分界符  
+END
+ELSE
+IF char IN ['+','-','*','/','.','<','=','>']
+THEN
+BEGIN
+  处理运算符  
+END
+ELSE BEGIN errorx : =2; error END
+END; {lexica1}
+BEGIN
+writeln ('k-table, input!');
+FOR 1:=1 TO keyicnDO
+FOR m:=1 TO identlenDO
+read (k[1] [m] );
+readln ;
+FOR l:=1 TO identlen DO
+id [1] [m]:='  ';
+writeln ('p-table, input!');
+FOR 1:=1 TO 11 DO
+FOR m:=1 TO 2 DO
+read(p[1] [m]);
+readln;
+ip:=0;
+cip:=1;
+pint:=1;
+l:   writeln('source, input!');
+FOR j:=1 TO identlen DO
+Read (instring[j] );
+lexical;
+writeln (outtoken.ty);
+writeln (outtoken. point);
+FOR l:=1 TO identlen DO
+write (token[ 1 ]);
+writeln;
+GOTO 1
+END.

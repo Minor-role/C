@@ -1,0 +1,35 @@
+#include "test.h"
+
+int test_sign(int len, char(*temp)[Min])
+{
+	int i;
+	for (i = 0; i<len; i++)
+		printf("%s\n", *(temp + i));
+
+	return 0;
+}
+
+int test_DFA_keyword_identifier(list *head)
+{
+	list *p1;
+	p1 = head;
+	while (p1)
+	{
+		printf("%s:%d\n", p1->word, p1->i);
+		p1 = p1->next;
+	}
+	return 0;
+}
+
+
+int test_DFA_constant(list *head)
+{
+	list *p1;
+	p1 = head;
+	while (p1)
+	{
+		printf("%s:%d\n", p1->word, p1->i);
+		p1 = p1->next;
+	}
+	return 0;
+}

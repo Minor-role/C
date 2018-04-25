@@ -1,0 +1,1 @@
+_at_ alien bdata break bit case char code compact const continue data default do double far else enum extern float for goto if funcused idata int inline interrupt large long pdata _priority_ reentrant return sbit sfr sfr16  short sigend sizeof small static struct switchc_task_ typedef using union  unsigned void volatile while xdata
